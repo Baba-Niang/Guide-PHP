@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0e14">
+<title>PHP Décodé · Guide interactif par Baba Niang</title>
+<meta name="description" content="30 fiches PHP organisées en 6 chapitres : de la requête HTTP aux fonctions. Mode clair/sombre, recherche, suivi de progression.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="tagbg" aria-hidden="true">&lt;?php</div>
+
+<!-- Slim top bar: menu (mobile) + brand + search + theme. -->
+<header class="topbar" id="topbar">
+  <button class="icon-btn only-mobile" id="menuToggle" aria-label="Ouvrir le sommaire" title="Sommaire">
+    <svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
+  </button>
+  <div class="brand">
+    <span class="brand-tag">&lt;?php</span>
+    <span class="brand-name">Guide PHP</span>
+  </div>
+  <div class="topbar-actions">
+    <button class="icon-btn" id="searchToggle" aria-label="Rechercher" title="Rechercher (/)">
+      <svg viewBox="0 0 24 24" width="17" height="17"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>
+    </button>
+    <button id="themeToggle" class="theme-toggle" aria-label="Changer de thème" title="Basculer clair / sombre">
+      <svg class="ic-sun" viewBox="0 0 24 24" width="17" height="17"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" width="17" height="17"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="search-panel" id="searchPanel">
+  <div class="search-panel-inner">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" width="16" height="16" class="search-ic"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>
+      <input class="search" id="search" placeholder="Rechercher une fiche, une notion, un mot-clé…" autocomplete="off">
+    </div>
+    <div class="filters" id="filters">
+      <button class="filter active" data-f="all">Toutes</button>
+      <button class="filter" data-f="todo">À réviser</button>
+      <button class="filter" data-f="done">Révisées</button>
+    </div>
+    <button class="tool ghost" id="reset" title="Effacer la progression">↺ Réinitialiser</button>
+  </div>
+</div>
+
+<div class="shell">
+  <div class="scrim" id="scrim"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <span class="brand-tag">&lt;?php</span>
+      <div>
+        <div class="sidebar-title">PHP Décodé</div>
+        <div class="sidebar-sub" id="sidebarSub">30 · 6 ch.</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav" aria-label="Sommaire des chapitres"></nav>
+    <button class="sidebar-collapse" id="sidebarCollapse" aria-label="Réduire le sommaire" title="Réduire le sommaire">
+      <svg viewBox="0 0 24 24" width="14" height="14"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </aside>
+
+  <main class="main">
+    <section class="hero" id="hero">
+      <div class="kicker">✨ Fiches PHP interactives · côté serveur</div>
+      <h1>PHP Décodé<span class="cursor">;</span></h1>
+      <p class="lede">Un parcours commenté de <strong>30 fiches</strong>, de la requête HTTP jusqu'aux fonctions réutilisables. Chaque fiche affiche l'image originale et, juste en dessous, son explication complète — rien à déplier.</p>
+
+      <div class="stats" id="stats">
+        <div class="stat"><b id="statFiches">30</b><span>fiches</span></div>
+        <div class="stat"><b id="statChapters">6</b><span>chapitres</span></div>
+        <div class="stat"><b id="statImages">94</b><span>images</span></div>
+        <div class="stat"><b>Requête → Réponse</b><span>logique</span></div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-head">
+          <span>Progression</span>
+          <strong id="pt">0 / 30 révisées</strong>
+        </div>
+        <div class="progress"><i id="pf"></i></div>
+      </div>
+    </section>
+
+    <section class="content" id="content"></section>
+    <p class="empty" id="empty">Aucune fiche ne correspond à ta recherche.</p>
+
+    <div class="kbd-hint"><kbd>←</kbd><kbd>→</kbd> fiche suivante / précédente · <kbd>/</kbd> rechercher · <kbd>Esc</kbd> fermer</div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="brand-tag">&lt;?php</span>
+      <p>30 fiches PHP organisées en 6 chapitres, de l'exécution côté serveur aux fonctions réutilisables. Images originales conservées telles quelles.</p>
+    </div>
+    <div class="footer-cols" id="footerNav"></div>
+  </div>
+  <div class="footer-bottom">Conçu par Baba Niang · Space Grotesk · IBM Plex Sans · JetBrains Mono</div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">✕</button>
+  <img id="lightboxImg" alt="">
+</div>
+
+<!-- Floating pager: jump straight to the previous / next fiche, with a
+     live "X / 30" counter — like flipping between pages in the reference guide. -->
+<div class="pager" id="pager">
+  <button class="pager-btn" id="pagerPrev" aria-label="Fiche précédente" title="Fiche précédente">
+    <svg viewBox="0 0 24 24" width="16" height="16"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <span class="pager-count" id="pagerCount">1 / 30</span>
+  <button class="pager-btn" id="pagerNext" aria-label="Fiche suivante" title="Fiche suivante">
+    <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<button class="totop" id="totop" aria-label="Haut de page">↑</button>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
