@@ -216,11 +216,11 @@ html[data-theme="light"] .ic-sun{opacity:1;transform:none}
 .sidebar-collapse svg{stroke:currentColor;fill:none;stroke-width:2.2;transition:transform .25s}
 .sidebar-collapse:hover{border-color:var(--accent)}
 
-.shell.collapsed .sidebar{width:0;flex-basis:0;border-right-color:transparent;overflow:hidden}
+.shell.collapsed .sidebar{width:0;flex-basis:0;border-right-color:transparent;overflow:visible}
 .shell.collapsed .sidebar-head,
 .shell.collapsed .sidebar-nav{opacity:0;pointer-events:none}
 .shell.collapsed .sidebar-collapse svg{transform:rotate(180deg)}
-.shell.collapsed .sidebar-collapse{right:-14px}
+.shell.collapsed .sidebar-collapse{right:-28px}
 
 .main{flex:1;min-width:0;position:relative;z-index:1}
 @media(min-width:901px){

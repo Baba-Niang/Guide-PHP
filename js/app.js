@@ -155,9 +155,16 @@ const scrim = document.getElementById('scrim');
     shell.classList.add('collapsed');
   }
 })();
+function syncSidebarCollapseButton(){
+  const collapsed = shell.classList.contains('collapsed');
+  sidebarCollapse.setAttribute('aria-label', collapsed ? 'Afficher le sommaire' : 'Réduire le sommaire');
+  sidebarCollapse.setAttribute('title', collapsed ? 'Afficher le sommaire' : 'Réduire le sommaire');
+}
+syncSidebarCollapseButton();
 sidebarCollapse.addEventListener('click', () => {
   const collapsed = shell.classList.toggle('collapsed');
   localStorage.setItem('phpGuideSidebarCollapsed', collapsed ? '1' : '0');
+  syncSidebarCollapseButton();
 });
 function openDrawer(){ shell.classList.add('drawer-open'); }
 function closeDrawer(){ shell.classList.remove('drawer-open'); }
